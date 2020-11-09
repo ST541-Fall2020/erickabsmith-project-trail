@@ -1,20 +1,19 @@
 # Milestones
 
-* [ ] Week 5 (10/29/2020)
+* [x] Week 5 (10/29/2020)
 
-  + Get data from [Pacific Crest Trail Association Website](https://www.pcta.org/our-work/trail-and-land-management/pct-visitor-use-statistics/) and [Halfway Anywhere Thru-Hiker Surveys](https://www.halfwayanywhere.com/trails/pacific-crest-trail/pct-thru-hiker-survey-2019/) and put into something R can read
-  + Find at least one resource on parallel computing and summarize it
+  + Get data from [Pacific Crest Trail Association Website](https://www.pcta.org/our-work/trail-and-land-management/pct-visitor-use-statistics/) and put into something R can read
+  + Find at least one resource on parallel computing
   + Read "Good enough practices for scientific computing" and take notes on key takeaways
 
 * [ ] Week 6 (11/05/2020)
 
-  + Fully define what is going to be simulated
-  + Create a bootstrapping functions (if that's what's going to be used for estimating)
-  + Test functions
-  + Complete a parallel computing tutorial
+  + go through future package information: [https://github.com/HenrikBengtsson/future](https://github.com/HenrikBengtsson/future)
+  + go through furrr package information: [https://davisvaughan.github.io/furrr/](https://davisvaughan.github.io/furrr/)
 
 * [ ] Week 7 (11/12/2020)
 
+  + go through furrr + EC2 information: [https://davisvaughan.github.io/furrr/articles/articles/remote-connections.html](https://davisvaughan.github.io/furrr/articles/articles/remote-connections.html)
   + Set up a parallel computing environment
   + Attempt to improve efficiency by at least one timing experiment
   + Document at least one function using roxygen

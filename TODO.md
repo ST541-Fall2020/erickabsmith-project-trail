@@ -4,7 +4,7 @@
 
   + Get data from [Pacific Crest Trail Association Website](https://www.pcta.org/our-work/trail-and-land-management/pct-visitor-use-statistics/) and put into something R can read
   + Find at least one resource on parallel computing
-  + Read "Good enough practices for scientific computing" and take notes on key takeaways
+  + Read ["Good enough practices for scientific computing"](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005510) and take notes on key takeaways
 
 * [ ] Week 6 (11/05/2020)
 

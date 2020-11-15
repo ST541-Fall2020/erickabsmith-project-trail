@@ -158,7 +158,7 @@ pid <- Sys.getpid()
 pid
 ```
 
-    ## [1] 2724
+    ## [1] 3124
 
 ``` r
 a %<-% {
@@ -189,7 +189,7 @@ b
 
     ## Warning in rm(pid): object 'pid' not found
 
-    ## [1] 2724
+    ## [1] 3124
 
 ``` r
 c
@@ -209,7 +209,7 @@ a
 pid
 ```
 
-    ## [1] 2724
+    ## [1] 3124
 
 **confused. Didn’t quite work correctly based on example** (because
 `Object 'pid' not found` error)
@@ -264,7 +264,7 @@ pid <- Sys.getpid()
 pid
 ```
 
-    ## [1] 2724
+    ## [1] 3124
 
 ``` r
 a %<-% {
@@ -295,7 +295,7 @@ b
 
     ## Warning in rm(pid): object 'pid' not found
 
-    ## [1] 17616
+    ## [1] 2544
 
 ``` r
 c
@@ -315,7 +315,7 @@ a
 pid
 ```
 
-    ## [1] 2724
+    ## [1] 3124
 
 Still giving the same error about pid. I wonder if it’s just an error bc
 I’m in markdown?
@@ -394,7 +394,7 @@ b %<-% {
 pid
 ```
 
-    ## [1] 2724
+    ## [1] 3124
 
 ``` r
 a
@@ -402,7 +402,7 @@ a
 
     ## Future 'a' ...
 
-    ## [1] 14024
+    ## [1] 3404
 
 ``` r
 b
@@ -413,7 +413,7 @@ b
     ## Future 'b2' ...
 
     ##  b.pid b1.pid b2.pid 
-    ##  21084  21084  21084
+    ##  10360  10360  10360
 
 Note that the pid for all of the bs is the same because nested futures
 use sequential evaluation unless otherwise specified.
@@ -445,7 +445,7 @@ b %<-% {
 pid
 ```
 
-    ## [1] 2724
+    ## [1] 3124
 
 ``` r
 a
@@ -453,7 +453,7 @@ a
 
     ## Future 'a' ...
 
-    ## [1] 2724
+    ## [1] 3124
 
 ``` r
 b
@@ -464,7 +464,7 @@ b
     ## Future 'b2' ...
 
     ##  b.pid b1.pid b2.pid 
-    ##   2724  17428  19992
+    ##   3124  10252  13440
 
 You also can force it to use nested multisessions, but that seems like a
 bad idea when just starting out.
@@ -514,7 +514,7 @@ a
 
     ## Future 'a' ...done
 
-    ## [1] 7808
+    ## [1] 5980
 
 ### Failed Futures
 

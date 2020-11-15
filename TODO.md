@@ -8,7 +8,7 @@
 
 ### Week 6 (11/05/2020)
 
-* [ ] go through future package information: [https://github.com/HenrikBengtsson/future](https://github.com/HenrikBengtsson/future).*(Pushed to week 7)* 
+* [x] go through future package information: [https://github.com/HenrikBengtsson/future](https://github.com/HenrikBengtsson/future).*(Pushed to week 7)* 
 * [ ] go through furrr package information: [https://davisvaughan.github.io/furrr/](https://davisvaughan.github.io/furrr/). *(Pushed to week 7)* 
 
 ### Week 7 (11/12/2020)

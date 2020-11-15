@@ -9,18 +9,19 @@
 ### Week 6 (11/05/2020)
 
 * [x] go through future package information: [https://github.com/HenrikBengtsson/future](https://github.com/HenrikBengtsson/future).*(Pushed to week 7)* 
-* [ ] go through furrr package information: [https://davisvaughan.github.io/furrr/](https://davisvaughan.github.io/furrr/). *(Pushed to week 7)* 
+* [x] go through furrr package information: [https://davisvaughan.github.io/furrr/](https://davisvaughan.github.io/furrr/). *(Pushed to week 7)* 
 
 ### Week 7 (11/12/2020)
 
-* [ ] go through furrr + EC2 information: [https://davisvaughan.github.io/furrr/articles/articles/remote-connections.html](https://davisvaughan.github.io/furrr/articles/articles/remote-connections.html)
-* [ ] Set up a parallel computing environment
-* [ ] Attempt to improve efficiency by at least one timing experiment
-* [ ] Document at least one function using roxygen
-* [ ] Do the actual simulation at least once. Does it make sense?
+* [ ] go through furrr + EC2 information: *(Pushed to week 8)* [https://davisvaughan.github.io/furrr/articles/articles/remote-connections.html](https://davisvaughan.github.io/furrr/articles/articles/remote-connections.html)
+* [ ] <del>Set up a parallel computing environment</del> *(Pushed to week 8 and refined for clarity)*
+* [ ] Attempt to improve efficiency by at least one timing experiment *(Currently Delayed. TBD)*
+* [ ] Document at least one function using roxygen *(Currently delayed. TBD)*
+* [ ] Do the actual simulation at least once. Does it make sense? *(Pushed to week 8)*
 
 ### Week 8 (11/19/2020)
 
+* [ ] Set up AWS EC2 instance, pre-loaded with R *(migrated from week 7)*
 * [ ] Learn about either make or liftr
 * [ ] Formalize Reproducability through at least one test
 * [ ] Clarify how files are related to each other with a flow diagram

@@ -7,6 +7,9 @@ output: github_document
 library(furrr)
 library(purrr)
 library(dplyr)
+library(future)
+library(parallelly)
+sessionInfo()
 ```
 
 ## Remote Connections
@@ -19,7 +22,7 @@ following along with vignette at [https://davisvaughan.github.io/furrr/articles/
 2. Running code in parallel on multiple EC2 instances
 
 ### AWS EC2 ?
-* EC2 is Amazon's Elastic COmpute Cloud service
+* EC2 is Amazon's Elastic Compute Cloud service
 * AMIs are "Amazon Machine Images" and that's what we use to get an instance pre-loaded with R. 
   * Louis Aslett, keeps up-to-date RStudio AMIs [on his website](http://www.louisaslett.com/RStudio_AMI/)
 * check out [this site](https://blog.davisvaughan.com/2017/05/15/rstudio-shiny-aws-1/) further to get a hand held through setting up an AWS instance based on this AMI
@@ -55,8 +58,62 @@ This is NOT faster currently.
 
 #### Connecting to an EC2 instance
 
+```{r}
+# A t2.micro AWS instance
+# Created from http://www.louisaslett.com/RStudio_AMI/
+public_ip <- "34.209.237.166"
+
+# This is where my pem file lives (password file to connect).
+ssh_private_key_file <- "C:/Users/erick/Documents/AWS/bamboozle.ppk"
+pss <- # paswword
+```
 
 
+```{r}
+connect_to_ec2 <- function(public_ip, ssh_private_key_file) {
+  makeClusterPSOCK(
+    # Public IP number of EC2 instance
+    workers = public_ip,
+    # User name (always 'ubuntu')
+    user = "ubuntu",
+    rshcmd = c("C:/Program Files/PuTTY/plink.exe", "-ssh"),
+    # Use private SSH key registered with AWS
+    rshopts = c(
+      "-o", "StrictHostKeyChecking=no",
+      "-o", "IdentitiesOnly=yes",
+      #"-i", ssh_private_key_file,
+      "-pw", pss
+    ),
+    rscript_args = c(
+      # Set up .libPaths() for the 'ubuntu' user
+      "-e", shQuote(paste0(
+        "local({",
+        "p <- Sys.getenv('R_LIBS_USER'); ",
+        "dir.create(p, recursive = TRUE, showWarnings = FALSE); ",
+        ".libPaths(p)",
+        "})"
+      )),
+      # Install furrr
+      "-e", shQuote("install.packages('furrr')")
+    ),
+    # Switch this to TRUE to see the code that is run on the workers without
+    # making the connection
+    dryrun = FALSE,
+    verbose = TRUE,
+    rshlogfile=TRUE
+  )
+}
+
+cl <- connect_to_ec2(public_ip, ssh_private_key_file)
+
+cl
+#> Socket cluster with 1 nodes where 1 node is on host ‘34.230.28.118’ (R version 3.6.0 (2019-04-26), platform x86_64-pc-linux-gnu)
+```
 
 
+Had to add `rschcmd=` arg because my computer tries to use openSSH and there's a bug with future and that SSH client.
 
+
+Doesn't work as is. Looks like `makeClusterPSOCK()` was moved to `parallelly` this November. 
+
+My best guess is that it's not working due to the password, which is why I tried running it with the password... But the problem is actually probably that I set up my SSH Auth incorrectly. 

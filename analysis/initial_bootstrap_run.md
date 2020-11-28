@@ -12,7 +12,7 @@ set.seed(171819)
 ```
 
 ``` r
-pct_completions <- read_csv(here("data", "pcta.csv"))
+pct_completions <- readRDS(here("data", "pcta.rds"))
 pct_completions <- pct_completions %>%
   mutate(prop = completions/(northbound+southbound),
          year = factor(year))
@@ -48,7 +48,7 @@ who finish to be 0.3501639.
 Now do bootstrap resamples with `bootstraps`
 
 ``` r
-resamples <- bootstraps(pct_completions, times = 10000)
+resamples <- rsample::bootstraps(pct_completions, times = 10000)
 resamples <- resamples %>%
   mutate(mean_prop_completed = map_dbl(splits,~mean(as.data.frame(.)$prop)))
 ```
@@ -60,7 +60,7 @@ resamples %>%
   ggplot(aes(x = mean_prop_completed)) +
     geom_histogram(fill = "darkblue") +
     geom_vline(xintercept = obs_mean) +
-    labs(title = "Bootstrap distribution of mean proportion of thru-hikers to finish the Pacific Crest Trail",
+    labs(title = "Bootstrap distribution of mean proportion of thru-hikers to \nfinish the Pacific Crest Trail",
       x = "Estimate of Mean Proportion")+
   theme_light()
 ```

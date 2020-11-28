@@ -17,7 +17,7 @@
 * [x] <del>Set up a parallel computing environment</del> *(Pushed to week 8 and refined for clarity)*
 * [ ] Attempt to improve efficiency by at least one timing experiment *(Currently Delayed. TBD)*
 * [ ] Document at least one function using roxygen *(Currently delayed. TBD)*
-* [ ] Do the actual simulation at least once. Does it make sense? *(Pushed to week 8)*
+* [x] Do the actual simulation at least once. Does it make sense? *(Pushed to week 8)*
 
 ### Week 8 (11/19/2020)
 

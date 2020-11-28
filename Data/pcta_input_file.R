@@ -9,4 +9,4 @@ pcta <- data.frame(
   completions = c(276,495,666,759,539,1179,953),
   horsecompletions = c(1,0,0,0,0,0,0)
 )
-write.csv(pcta, "Data/pcta.csv")
+saveRDS(pcta, "Data/pcta.rds")

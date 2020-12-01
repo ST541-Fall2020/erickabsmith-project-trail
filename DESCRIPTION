@@ -1,4 +1,4 @@
-Package: erickabsmith-project-trail
+Package: pctsuccess
 Title: What Proportion of Hikers Complete the Pacific Crest Trail
 Version: 0.0.0.9000
 Authors@R: 
@@ -8,7 +8,7 @@ Authors@R:
            email = "smith.ericka.b@gmail.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: Run bootstrap simulations in AWS EC2 to create estimate of mean proportion of completion of entire Pacific Crest Trail.
-License: `use_mit_license()`
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

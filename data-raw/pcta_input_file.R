@@ -1,3 +1,5 @@
+library(here)
+
 pcta <- data.frame(
   year = seq(2013, 2019, by=1),
   total = c(7888,7313,6069,5657,4453,2655,1879),
@@ -9,4 +11,4 @@ pcta <- data.frame(
   completions = c(276,495,666,759,539,1179,953),
   horsecompletions = c(1,0,0,0,0,0,0)
 )
-saveRDS(pcta, "Data/pcta.rds")
+saveRDS(pcta, here("data", "pcta.rds"))

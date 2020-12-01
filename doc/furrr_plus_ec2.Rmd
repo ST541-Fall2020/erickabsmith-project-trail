@@ -61,11 +61,11 @@ This is NOT faster currently.
 ```{r}
 # A t2.micro AWS instance
 # Created from http://www.louisaslett.com/RStudio_AMI/
-public_ip <- "34.209.237.166"
+public_ip <- "18.237.4.162"
 
 # This is where my pem file lives (password file to connect).
-ssh_private_key_file <- "C:/Users/erick/Documents/AWS/bamboozle.ppk"
-pss <- # paswword
+ssh_private_key_file <- "C:/Users/erick/Documents/AWS/trying-again.ppk"
+#pss <- # paswword
 ```
 
 
@@ -80,9 +80,9 @@ connect_to_ec2 <- function(public_ip, ssh_private_key_file) {
     # Use private SSH key registered with AWS
     rshopts = c(
       "-o", "StrictHostKeyChecking=no",
-      "-o", "IdentitiesOnly=yes",
+      "-o", "IdentitiesOnly=yes"#,
       #"-i", ssh_private_key_file,
-      "-pw", pss
+      #"-pw", pss
     ),
     rscript_args = c(
       # Set up .libPaths() for the 'ubuntu' user

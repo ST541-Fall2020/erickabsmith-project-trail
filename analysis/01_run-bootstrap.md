@@ -1,4 +1,4 @@
-Untitled
+01\_run-bootstrap
 ================
 
 ``` r
@@ -13,8 +13,8 @@ library(purrr)
 Load data and functions
 
 ``` r
-pct_completions <- readRDS("../results/pct_completions.rds")
-source("../R/bootstrap_functions.R")
+pct_completions <- readRDS(here("results", "pct_completions.rds"))
+source(here("R", "bootstrap-functions.R"))
 ```
 
 Do bootstrap resampling
@@ -49,6 +49,6 @@ rownames(means_and_ci) <- NULL
 Export results
 
 ``` r
-saveRDS(resamples, "../results/bootstrap-resamples.rds")
-saveRDS(means_and_ci, "../results/bootstrap-mean-and-ci.rds")
+saveRDS(resamples, here("results", "bootstrap-resamples.rds"))
+saveRDS(means_and_ci, here("results", "bootstrap-mean-and-ci.rds"))
 ```

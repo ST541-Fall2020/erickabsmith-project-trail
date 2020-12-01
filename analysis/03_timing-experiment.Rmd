@@ -11,26 +11,26 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ```{r run-timings}
-timings <- bench::mark(
-  {set.seed(72)
-    func1()
-  },
-  {set.seed(72)
-    func2()
-  }
-)
+# timings <- bench::mark(
+#   {set.seed(72)
+#     func1()
+#   },
+#   {set.seed(72)
+#     func2()
+#   }
+# )
 ```
 
 
 ```{r save-output}
-timings_plot <- plot(timings)
-
-ggsave("timing-experiment-plot.tiff", plot=timings_plot, path="../results")
-timings
-
-timings %>%
-  kbl() %>%
-  kable_minimal(full_width = F) %>%
-  save_kable(file="../results/timing-experient-table.html")
+# timings_plot <- plot(timings)
+# 
+# ggsave("timing-experiment-plot.tiff", plot=timings_plot, path="../results")
+# timings
+# 
+# timings %>%
+#   kbl() %>%
+#   kable_minimal(full_width = F) %>%
+#   save_kable(file="../results/timing-experient-table.html")
 ```
 

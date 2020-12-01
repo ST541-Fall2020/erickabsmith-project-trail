@@ -9,7 +9,7 @@ library(here)
 Import data
 
 ``` r
-pct_completions <- readRDS("../data/pcta.rds")
+pct_completions <- readRDS(here("data", "pcta.rds"))
 ```
 
 Filter out unnecessary columns and create proportion completed variable
@@ -25,5 +25,5 @@ pct_completions <- pct_completions %>%
 Export new file
 
 ``` r
-saveRDS(pct_completions, "../results/pct_completions.rds")
+saveRDS(pct_completions, here("results", "pct_completions.rds"))
 ```

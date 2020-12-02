@@ -61,59 +61,147 @@ This is NOT faster currently.
 ```{r}
 # A t2.micro AWS instance
 # Created from http://www.louisaslett.com/RStudio_AMI/
-public_ip <- "18.237.4.162"
+#public_ip <- "18.237.4.162"
+public_ip <- "ec2-18-237-4-162.us-west-2.compute.amazonaws.com"
 
 # This is where my pem file lives (password file to connect).
 ssh_private_key_file <- "C:/Users/erick/Documents/AWS/trying-again.ppk"
-#pss <- # paswword
+pss <-"i-0aa818fddfc1a8419"  # paswword
 ```
 
 
 ```{r}
+# connect_to_ec2 <- function(public_ip, ssh_private_key_file) {
+#   makeClusterPSOCK(
+#     # Public IP number of EC2 instance
+#     workers = public_ip,
+#     # User name (always 'ubuntu')
+#     user = "ubuntu",
+#     rshcmd = c("plink", "-ssh", "-i", "C:/Program Files/PuTTY/plink.exe"),
+#     # Use private SSH key registered with AWS
+#     rshopts = c(
+#       "-o", "StrictHostKeyChecking=no",
+#       "-o", "IdentitiesOnly=yes",
+#       #"-i", ssh_private_key_file,
+#       "-pw", pss
+#     ),
+#     rscript_args = c(
+#       # Set up .libPaths() for the 'ubuntu' user
+#       "-e", shQuote(paste0(
+#         "local({",
+#         "p <- Sys.getenv('R_LIBS_USER'); ",
+#         "dir.create(p, recursive = TRUE, showWarnings = FALSE); ",
+#         ".libPaths(p)",
+#         "})"
+#       )),
+#       # Install furrr
+#       "-e", shQuote("install.packages('furrr')")
+#     ),
+#     # Switch this to TRUE to see the code that is run on the workers without
+#     # making the connection
+#     dryrun = FALSE,
+#     verbose = TRUE,
+#     rshlogfile=TRUE
+#   )
+# }
+# 
+# cl <- connect_to_ec2(public_ip, ssh_private_key_file)
+# 
+# cl
+#> Socket cluster with 1 nodes where 1 node is on host ‘34.230.28.118’ (R version 3.6.0 (2019-04-26), platform x86_64-pc-linux-gnu)
+```
+
+**11/22/2018 Update:**
+* Had to add `rschcmd=` arg because my computer tries to use openSSH and there's a bug with future and that SSH client.
+* Doesn't work as is. Looks like `makeClusterPSOCK()` was moved to `parallelly` this November. 
+* My best guess is that it's not working due to the password, which is why I tried running it with the password... But the problem is actually probably that I set up my SSH Auth incorrectly. 
+
+**12/2/2020 Update:**
+* Works now
+* Troubleshooting took a lot of reading through github issues and working back and forth between command line and function arguments
+* Primary resources: 
+  + [https://github.com/HenrikBengtsson/future/issues/242](https://github.com/HenrikBengtsson/future/issues/242)
+  + [https://github.com/HenrikBengtsson/future/issues/136](https://github.com/HenrikBengtsson/future/issues/136)
+  + [https://github.com/HenrikBengtsson/parallelly/issues/14#issuecomment-437568082](https://github.com/HenrikBengtsson/parallelly/issues/14#issuecomment-437568082)
+
+
+A troubleshooting step:
+```{r}
+#system('"plink" "-ssh" "-i" "C:/Program Files/PuTTY/plink.exe" -R 11930:localhost:11930 -l ubuntu -o StrictHostKeyChecking=no -o IdentitiesOnly=yes -i ~/.ssh/google_compute_engine')
+
+#system('"plink" "-ssh" "-i" "C:/Program Files/PuTTY/plink.exe" -R 11930:localhost:11930 -l ubuntu -i ~/.ssh/google_compute_engine 1.2.3.4 date')
+```
+
+
+Final, working:
+```{r}
+public_ip <- "35.162.70.128"
+getwd()
+ssh_private_key_file <- "C:/Users/erick/Documents/AWS/trying-again.ppk"
+
+
 connect_to_ec2 <- function(public_ip, ssh_private_key_file) {
-  makeClusterPSOCK(
+  parallelly::makeClusterPSOCK(
     # Public IP number of EC2 instance
     workers = public_ip,
     # User name (always 'ubuntu')
     user = "ubuntu",
-    rshcmd = c("C:/Program Files/PuTTY/plink.exe", "-ssh"),
-    # Use private SSH key registered with AWS
+    rshcmd = c("plink", "-ssh", "-i", "C:/Program Files/PuTTY/plink.exe"),
     rshopts = c(
-      "-o", "StrictHostKeyChecking=no",
-      "-o", "IdentitiesOnly=yes"#,
-      #"-i", ssh_private_key_file,
-      #"-pw", pss
+      "-i", ssh_private_key_file
     ),
-    rscript_args = c(
-      # Set up .libPaths() for the 'ubuntu' user
-      "-e", shQuote(paste0(
-        "local({",
-        "p <- Sys.getenv('R_LIBS_USER'); ",
-        "dir.create(p, recursive = TRUE, showWarnings = FALSE); ",
-        ".libPaths(p)",
-        "})"
-      )),
-      # Install furrr
-      "-e", shQuote("install.packages('furrr')")
-    ),
-    # Switch this to TRUE to see the code that is run on the workers without
-    # making the connection
     dryrun = FALSE,
     verbose = TRUE,
-    rshlogfile=TRUE
   )
 }
-
 cl <- connect_to_ec2(public_ip, ssh_private_key_file)
-
 cl
-#> Socket cluster with 1 nodes where 1 node is on host ‘34.230.28.118’ (R version 3.6.0 (2019-04-26), platform x86_64-pc-linux-gnu)
 ```
 
+Moving forward in vignette (direct quote follows):
 
-Had to add `rschcmd=` arg because my computer tries to use openSSH and there's a bug with future and that SSH client.
+"Let's step through this a little.
 
+- `workers` - The public ip addresses of the workers you want to connect to.
+  If you have multiple, you can list them here.
 
-Doesn't work as is. Looks like `makeClusterPSOCK()` was moved to `parallelly` this November. 
+- `user` - Because we used the RStudio AMI, this is always `"ubuntu"`.
 
-My best guess is that it's not working due to the password, which is why I tried running it with the password... But the problem is actually probably that I set up my SSH Auth incorrectly. 
+- `rshopts` - These are options that are run on the command line of your
+  *local* computer when connecting to the instance by ssh.
+
+    - `StrictHostKeyChecking=no` - This is required because by default when
+      connecting to the AWS instance for the first time you are asked if you
+      want to "continue connecting" because authenticity of the AWS instance
+      can't be verified. Setting this option to no means we won't have to
+      answer this question.
+    
+    - `IdentitiesOnly=yes` - This is not necessarily required, but specifies
+      that we only want to connect using the identity we supply with `-i`,
+      which ends up being the `.pem` file.
+
+- `rscript_args` - This very helpful argument allows you to specify R code to
+  run when the command line executable `Rscript` is called on your *worker*.
+  Essentially, it allows you to run "start up code" on each worker.
+  In this case, it is used to create package paths for the `ubuntu` user and
+  to install a few packages that are required to work with `furrr`.
+
+- `dryrun` - This is already set to `FALSE` by default, but it's useful to
+  point this argument out as setting it to `TRUE` allows you to verify that
+  the code that should run on each worker is correct."
+
+## Running the code
+
+```{r}
+plan(cluster, workers = cl)
+models <- future_map(by_gear, ~lm(mpg ~ cyl + hp + wt, data = .))
+models
+```
+
+Make sure to shut off connection after done using.
+```{r}
+# Revert back to a sequential plan
+plan(sequential)
+parallel::stopCluster(cl)
+```
+

@@ -20,6 +20,10 @@ Imports:
     rsample,
     ggpubr,
     magrittr,
-    purrr
+    purrr,
+    furrr,
+    dplyr,
+    future,
+    parallelly
 Suggests: 
     testthat

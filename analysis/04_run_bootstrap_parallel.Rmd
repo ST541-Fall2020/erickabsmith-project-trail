@@ -1,0 +1,75 @@
+---
+title: "04_run_bootstrap_parallel"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(here)
+library(rsample)
+library(ggpubr)
+library(magrittr)
+library(purrr)
+library(furrr)
+library(future)
+library(parallelly)
+```
+
+Load data and functions
+
+```{r load-data, message=FALSE, warning =FALSE}
+pct_completions <- readRDS(here("results", "pct_completions.rds"))
+source(here("R", "bootstrap-functions.R"))
+source(here("R", "connect-to-ec2.R"))
+ssh_info <- read_csv(here("data", "ssh_info.csv"))
+```
+
+Connect to EC2
+
+```{r}
+public_ip <- ssh_info$ip
+ssh_private_key_file <- ssh_info$filepath
+cl <- connect_to_ec2(public_ip, ssh_private_key_file)
+cl
+```
+
+Run Boostrap
+
+```{r}
+plan(cluster, workers = cl)
+resamples <- future_get_bootstrap_prop_means(original_dat=pct_completions, ntimes = 1000)
+mean(resamples)
+sd(resamples)
+```
+
+Disconnect EC2
+
+```{r}
+plan(sequential)
+parallel::stopCluster(cl)
+```
+
+Create data frame with observed mean, bootstrap mean, and bootstrap confidence interval
+
+```{r}
+obs_mean <- mean(pct_completions$prop)
+bootmean <- mean(resamples)
+ci <- c("lb"=bootmean-sd(resamples),
+        "ub"=bootmean+sd(resamples))
+
+future_means_and_ci <- data.frame(
+  obs_mean = obs_mean,
+  bootmean  = bootmean,
+  "2.5%" = ci[1],
+  "97.5%" = ci[2])
+
+rownames(future_means_and_ci) <- NULL
+```
+
+Export results
+
+```{r}
+saveRDS(resamples, here("results", "future_bootstrap-resamples.rds"))
+saveRDS(future_means_and_ci, here("results", "future_bootstrap-mean-and-ci.rds"))
+```

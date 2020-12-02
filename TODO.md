@@ -15,15 +15,15 @@
 
 * [ ] go through furrr + EC2 information: *(Pushed to week 8)* [https://davisvaughan.github.io/furrr/articles/articles/remote-connections.html](https://davisvaughan.github.io/furrr/articles/articles/remote-connections.html)
 * [x] <del>Set up a parallel computing environment</del> *(Pushed to week 8 and refined for clarity)*
-* [ ] Attempt to improve efficiency by at least one timing experiment *(Currently Delayed. TBD)*
-* [ ] Document at least one function using roxygen *(Currently delayed. TBD)*
+* [ ] Attempt to improve efficiency by at least one timing experiment *(Skeleton created but not implemented)*
+* [x] Document at least one function using roxygen
 * [x] Do the actual simulation at least once. Does it make sense? *(Pushed to week 8)*
 
 ### Week 8 (11/19/2020)
 
 * [x] Set up AWS EC2 instance, pre-loaded with R *(migrated from week 7)*
 * [ ] Learn about either make or liftr
-* [ ] Formalize Reproducability through at least one test
+* [ ] Formalize Reproducability through at least one test *(Skeleton created but not implemented)*
 * [ ] Clarify how files are related to each other with a flow diagram
 * [ ] Draft README
 * [ ] Run simulation again at least once

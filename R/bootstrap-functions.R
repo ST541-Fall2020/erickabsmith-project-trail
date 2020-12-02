@@ -11,3 +11,25 @@ get_bootstrap_prop_means <- function(original_dat, ntimes = 1000){
   resamples <- rsample::bootstraps(original_dat, times=ntimes) %>%
     mutate(mean_prop_completed = map_dbl(splits, ~mean(as.data.frame(.)$prop)))
 }
+
+compare_get_bootstrap_prop_means <- function(original_dat, ntimes = 1000){
+  many_props <- map(1:ntimes,
+                    ~sample(original_dat$prop,
+                            length(original_dat$prop),
+                            replace=TRUE),
+                    .options = furrr_options(seed=TRUE))
+  many_prop_means <- map_dbl(many_props,
+                             ~mean(.x),
+                             .options = furrr_options(seed=TRUE))
+}
+
+future_get_bootstrap_prop_means <- function(original_dat, ntimes = 1000){
+  many_props <- future_map(1:ntimes,
+                           ~sample(original_dat$prop, 
+                                   length(original_dat$prop),
+                                   replace=TRUE),
+                           .options = furrr_options(seed=TRUE))
+  many_prop_means <- future_map_dbl(many_props, 
+                                    ~mean(.x),
+                                    .options = furrr_options(seed=TRUE))
+}

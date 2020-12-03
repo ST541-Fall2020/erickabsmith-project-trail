@@ -21,8 +21,8 @@ source(here("R", "bootstrap-functions.R"))
 
 Do bootstrap resampling
 
-```{r}
-resamples <- get_bootstrap_prop_means(original_dat=pct_completions, ntimes = 10000)
+```{r cache=TRUE}
+resamples <- get_bootstrap_prop_means(original_dat=pct_completions, ntimes = 100000)
 ```
 
 Create data frame with observed mean, bootstrap mean, and bootstrap confidence interval

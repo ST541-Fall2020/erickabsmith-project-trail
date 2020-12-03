@@ -20,7 +20,7 @@ cl <- connect_to_ec2(public_ip, ssh_private_key_file)
 
     ## [local output] Workers: [n = 1] '35.162.70.128'
 
-    ## [local output] Base port: 11606
+    ## [local output] Base port: 11980
 
     ## [local output] Creating node 1 of 1 ...
 
@@ -30,7 +30,7 @@ cl <- connect_to_ec2(public_ip, ssh_private_key_file)
 
     ## [local output] Using 'rshcmd': 'plink', '-ssh', '-i', 'C:/Program Files/PuTTY/plink.exe' [type='<unknown>', version='<unknown>']
 
-    ## [local output] Starting worker #1 on '35.162.70.128': "plink" "-ssh" "-i" "C:/Program Files/PuTTY/plink.exe" -R 11606:localhost:11606 -l ubuntu -i C:/Users/erick/Documents/AWS/trying-again.ppk 35.162.70.128 "\"Rscript\" --default-packages=datasets,utils,grDevices,graphics,stats,methods -e \"workRSOCK <- tryCatch(parallel:::.slaveRSOCK, error=function(e) parallel:::.workRSOCK); workRSOCK()\" MASTER=localhost PORT=11606 OUT=/dev/null TIMEOUT=2592000 XDR=TRUE"
+    ## [local output] Starting worker #1 on '35.162.70.128': "plink" "-ssh" "-i" "C:/Program Files/PuTTY/plink.exe" -R 11980:localhost:11980 -l ubuntu -i C:/Users/erick/Documents/AWS/trying-again.ppk 35.162.70.128 "\"Rscript\" --default-packages=datasets,utils,grDevices,graphics,stats,methods -e \"workRSOCK <- tryCatch(parallel:::.slaveRSOCK, error=function(e) parallel:::.workRSOCK); workRSOCK()\" MASTER=localhost PORT=11980 OUT=/dev/null TIMEOUT=2592000 XDR=TRUE"
 
     ## [local output] - Exit code of system() call: 0
 
@@ -52,17 +52,17 @@ Run Boostrap
 
 ``` r
 plan(cluster, workers = cl)
-resamples <- future_get_bootstrap_prop_means(original_dat=pct_completions, ntimes = 1000)
+resamples <- future_get_bootstrap_prop_means(original_dat=pct_completions, ntimes = 100000)
 mean(resamples)
 ```
 
-    ## [1] 0.3486391
+    ## [1] 0.3494216
 
 ``` r
 sd(resamples)
 ```
 
-    ## [1] 0.1215633
+    ## [1] 0.1238737
 
 Disconnect EC2
 

@@ -36,9 +36,9 @@ cl
 
 Run Boostrap
 
-```{r}
+```{r cache=TRUE}
 plan(cluster, workers = cl)
-resamples <- future_get_bootstrap_prop_means(original_dat=pct_completions, ntimes = 1000)
+resamples <- future_get_bootstrap_prop_means(original_dat=pct_completions, ntimes = 100000)
 mean(resamples)
 sd(resamples)
 ```
@@ -70,6 +70,6 @@ rownames(future_means_and_ci) <- NULL
 Export results
 
 ```{r}
-saveRDS(resamples, here("results", "future_bootstrap-resamples.rds"))
-saveRDS(future_means_and_ci, here("results", "future_bootstrap-mean-and-ci.rds"))
+saveRDS(resamples, here("results", "parallel-bootstrap-resamples.rds"))
+saveRDS(future_means_and_ci, here("results", "parallel-bootstrap-mean-and-ci.rds"))
 ```

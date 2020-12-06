@@ -8,3 +8,7 @@ This project investigates the chance of successfully completing the Pacific Cres
 In order to estimate this mean bootstrapping was done by using the furrr package (future and purrr) and the socket method of parallelization to create a cluster with Amazon Web Services Elastic Compute Cloud (EC2).
 
 Find my presentation slides [here.](https://github.com/ST541-Fall2020/erickabsmith-project-trail/blob/master/doc/presentation-slides.pdf)
+
+## Getting Started 
+
+put dependencies here

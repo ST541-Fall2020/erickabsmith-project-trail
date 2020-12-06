@@ -13,7 +13,7 @@
 
 ### Week 7 (11/12/2020)
 
-* [ ] go through furrr + EC2 information: *(Pushed to week 8)* [https://davisvaughan.github.io/furrr/articles/articles/remote-connections.html](https://davisvaughan.github.io/furrr/articles/articles/remote-connections.html)
+* [x] go through furrr + EC2 information: *(Pushed to week 8)* [https://davisvaughan.github.io/furrr/articles/articles/remote-connections.html](https://davisvaughan.github.io/furrr/articles/articles/remote-connections.html)
 * [x] <del>Set up a parallel computing environment</del> *(Pushed to week 8 and refined for clarity)*
 * [ ] Attempt to improve efficiency by at least one timing experiment *(Skeleton created but not implemented)*
 * [x] Document at least one function using roxygen
@@ -26,13 +26,13 @@
 * [ ] Formalize Reproducability through at least one test *(Skeleton created but not implemented)*
 * [ ] Clarify how files are related to each other with a flow diagram
 * [ ] Draft README
-* [ ] Run simulation again at least once
+* [x] Run simulation again at least once
 
 ### Week 9 (11/26/2020)
 
 * [ ] Finalize documentation and reread for clarity
-* [ ] Complete Report
-* [ ] Complete Presentation
+* [x] Complete Report
+* [x] Complete Presentation
 
 ### Week 10 (12/03/2020)
 

@@ -27,4 +27,6 @@ Imports:
     parallelly,
     magick,
     testthat,
-    liftr
+    liftr,
+    kableExtra,
+    usethis

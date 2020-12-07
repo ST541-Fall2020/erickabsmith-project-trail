@@ -50,13 +50,18 @@ However, the bootstrap distribution (below) does not appear to be approximately 
 knitr::include_graphics("../results/parallel-bootstrap-distribution-plot.png")
 ```
 
+Most importantly, the parallel approach was not faster, as you can see in the timing plot below. This makes intuitive sense because parallelization is more advantageous when there is a lot of computation involved, which in this case there is not. Even with 100,000 resamples we still are only resampling a vector of seven numbers.
+
+```{r echo=FALSE, out.width="75%", fig.align="center"}
+knitr::include_graphics("../results/timing-experiment-plot.png")
+```
 
 ### Discussion
 
 Due to the small sample size (n=7) and the shape of the bootstrap distribution these results should be taken with ample reservations. Additionally, the raw data shows a marked increase in proportion of finishers in 2017. This could be due to a number of things. Higher success could simply be due to an increase in reporting. It also could be due to a true increase in success in light of advance safety technology and planning resources. But this report will not attempt to guess at the cause, rather, it suggests further inquiry. 
 
-Though any conclusions of this study are shaky at best, due to the limitations just discussed, the goals of the project were met. The primary motivation of gaining experience and knowledge in parallel computing was a success. I gained understanding of the future and furrr packages. I also learned what a parallel socket cluster is and used Amazon EC2 to complete the bootstrapping. Finally, an estimate of the mean proportion of PCT trail finishers was estimated. 
+Though any conclusions of this study are shaky at best, due to the limitations just discussed, the goals of the project were met. The primary motivation of gaining experience and knowledge in parallel computing was a success. I gained understanding of the future and furrr packages. I also learned what a parallel socket cluster is and used Amazon EC2 to complete the bootstrapping. Additionally, despite a setback trying to learn how to use the liftr package, I did gain a lot of experience with best practices for repository structure, an introduction to documentation via roxygen, and practice using the testthat package. Finally, an estimate of the mean proportion of PCT trail finishers was estimated. Overall this project was a success. 
 
 ### Supplementary Material
 
-Please see `README.md` in the project repository at [https://github.com/ST541-Fall2020/erickabsmith-project-trail](https://github.com/ST541-Fall2020/erickabsmith-project-trail) for sources used and further information. 
+Please see the project repository at [https://github.com/ST541-Fall2020/erickabsmith-project-trail](https://github.com/ST541-Fall2020/erickabsmith-project-trail) for sources used (`CITATION.md`) and further information (`README.md`)

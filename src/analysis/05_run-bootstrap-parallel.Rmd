@@ -1,7 +1,15 @@
 ---
-title: "04_run_bootstrap_parallel"
+title: "05_run_bootstrap_parallel"
 output: github_document
 ---
+
+This file creates the resamples data from the parallel approach, `results/parallel-bootstrap-resamples.rds`, and a file with summary statistics, `results/parallel-bootstrap-mean-and-ci.rds`
+
+It requires:
+* `results/pct_completions.rds`
+* `src/R/bootstrap-functions.R`
+* `src/R/connect-to-ec2.R`
+* `data/ssh_info.csv`
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -20,8 +28,8 @@ Load data and functions
 
 ```{r load-data, message=FALSE, warning =FALSE}
 pct_completions <- readRDS(here("results", "pct_completions.rds"))
-source(here("R", "bootstrap-functions.R"))
-source(here("R", "connect-to-ec2.R"))
+source(here("src/R", "bootstrap-functions.R"))
+source(here("src/R", "connect-to-ec2.R"))
 ssh_info <- read_csv(here("data", "ssh_info.csv"))
 ```
 
@@ -34,7 +42,7 @@ cl <- connect_to_ec2(public_ip, ssh_private_key_file)
 cl
 ```
 
-Run Boostrap
+Run Bootstrap
 
 ```{r cache=TRUE}
 plan(cluster, workers = cl)

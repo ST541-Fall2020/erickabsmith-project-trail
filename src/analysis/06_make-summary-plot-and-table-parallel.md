@@ -1,15 +1,15 @@
----
-title: "06_make-summary-plot-and-table-parallel"
-output: github_document
----
+06\_make-summary-plot-and-table-parallel
+================
 
-This file creates a plot and a table from the resamples data from the parallel approach which are saved at `results/parallel-bootstrap-distribution-plot.png` and `results/parallel-means-and-ci.png"`
+This file creates a plot and a table from the resamples data from the
+parallel approach which are saved at
+`results/parallel-bootstrap-distribution-plot.png` and
+`results/parallel-means-and-ci.png"`
 
-It requires: 
-* `results/parallel-bootstrap-resamples.rds`
-* `results/parallel-bootstrap-mean-and-ci.rds`
+It requires: \* `results/parallel-bootstrap-resamples.rds` \*
+`results/parallel-bootstrap-mean-and-ci.rds`
 
-```{r setup, message = FALSE, warning=FALSE}
+``` r
 library(tidyverse)
 library(here)
 library(ggpubr)
@@ -18,14 +18,16 @@ library(magick)
 ```
 
 Load Data
-```{r message=FALSE, warning =FALSE}
+
+``` r
 mean_prop_completed <- readRDS(here("results", "parallel-bootstrap-resamples.rds"))
 parallel_resamples <- as.data.frame(mean_prop_completed)
 parallel_means_and_ci <- readRDS(here("results", "parallel-bootstrap-mean-and-ci.rds"))
 ```
 
 Create plot of (parallel) bootstrap distribution
-```{r}
+
+``` r
 parallel_bootstrap_dist_plot <- parallel_resamples %>% 
   ggplot(aes(x = mean_prop_completed)) +
   geom_histogram(fill = "darkblue") +
@@ -44,12 +46,18 @@ parallel_bootstrap_dist_plot <- parallel_resamples %>%
 ```
 
 Export plot
-```{r}
+
+``` r
 ggsave("parallel-bootstrap-distribution-plot.png", plot=parallel_bootstrap_dist_plot, path="../../results")
 ```
 
+    ## Saving 7 x 5 in image
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
 Create and export table
-```{r}
+
+``` r
 names(parallel_means_and_ci) <- c("Observed Mean", 
                          "Parallel Bootstrap Mean", 
                          "Boostrap Confidence Interval Lower Bound (2.5%)",

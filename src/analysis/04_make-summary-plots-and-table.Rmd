@@ -4,6 +4,13 @@ output: github_document
 always_allow_html: true
 ---
 
+This file creates three results:
+1. The plot of observed data
+2. The plot of the sequential bootstrap distribution
+3. A table of the sequential bootstrap mean and 95% confidence interval, alongside the observed mean.
+
+As inputs it requires `results/pct_completions.rds`, `results/bootstrap-resamples.rds`, and `results/bootstrap-mean-and-ci.rds`.
+
 ```{r setup, message = FALSE, warning=FALSE}
 library(tidyverse)
 library(here)
@@ -22,7 +29,7 @@ means_and_ci <- readRDS(here("results", "bootstrap-mean-and-ci.rds"))
 Create plot of observed proportions
 ```{r}
 obs_data_plot <- pct_completions %>% 
-  ggplot(aes(x = year, 
+  ggplot2::ggplot(aes(x = year, 
              y=prop)) +
   geom_point(color = "darkblue", 
              size = 2) +
@@ -44,7 +51,7 @@ obs_data_plot <- pct_completions %>%
 Create plot of bootstrap distribution
 ```{r}
 bootstrap_dist_plot <- resamples %>% 
-  ggplot(aes(x = mean_prop_completed)) +
+  ggplot2::ggplot(aes(x = mean_prop_completed)) +
   geom_histogram(fill = "darkblue") +
   geom_vline(xintercept = means_and_ci$bootmean) +
   geom_vline(xintercept = means_and_ci$X2.5., 
@@ -62,8 +69,8 @@ bootstrap_dist_plot <- resamples %>%
 
 Export plots
 ```{r}
-ggsave("observed-data-plot.png", plot = obs_data_plot, path= "../results")
-ggsave("bootstrap-distribution-plot.png", plot=bootstrap_dist_plot, path="../results")
+ggplot2::ggsave("observed-data-plot.png", plot = obs_data_plot, path= "../../results")
+ggplot2::ggsave("bootstrap-distribution-plot.png", plot=bootstrap_dist_plot, path="../../results")
 ```
 
 Create Table
@@ -73,10 +80,10 @@ names(means_and_ci) <- c("Observed Mean",
                          "Confidence Interval Lower Bound (2.5%)",
                          "Confidence Interval Upper Bound (97.5%)")
 means_and_ci %>%
-  kbl() %>%
+  kableExtra::kbl() %>%
   kable_styling(c("bordered", "condensed"), full_width = FALSE) %>%
-  save_kable(file="../results/means-and-ci.png")
+  save_kable(file="../../results/means-and-ci.png")
 ```
 
-## Again, but with parallel bootstrap run data
+
 

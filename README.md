@@ -29,6 +29,7 @@ Running the project sequentially allows the following files:
 `01...` only requires the `data/pcta.rds` data file. 
 
 `02...`, `03...`, and `04...` must be run in order as each depends on the one before it, starting with `02...` which requires the `data/pcta.rds` file.
+Additionally, `03...` requires `src/R/bootstrap-functions.R`.
 
 
 ### II. Parallel Approach
@@ -48,8 +49,30 @@ Now, running the project in paralllel allows the following files:
 * `src/analysis/02_data-cleaning.Rmd` - This is the preliminary step in the analysis.
 * `src/analysis/05_run-bootstrap-parallel.Rmd` - This is where the parallel bootstrap is actually run.
 * `src/analysis/06_make-summary-plots-and-table-parallel.Rmd` - This is where summary plots and a table are created.
-* `src/analysis/07_timing 
+* `src/analysis/07_timing-experiment.Rmd` - This is where timing between the sequential and parallel approaches is compared.  
 
-`01...` only requires the `data/pcta.rds` data file. 
+`02...` only requires the `data/pcta.rds` data file.
+`05...` relies on `02...` and on both `src/R/boostrap-functions.R` and `src/R/connect-to-ec2.R`
+`06...` relies on `05...`.
+In order to run `07...` all files in sequential and parallel sections, excluding `01...` must be run. 
+
+In addition, all files ni 
 
 `02...`, `03...`, and `04...` must be run in order as each depends on the one before it, starting with `02...` which requires the `data/pcta.rds` file.
+
+
+### III. Miscellaneous
+
+*  Tutorials and notes written during this project are located in `doc`
+*  `data-raw` is distinguished from `data` as suggested by @cwickham as convention for dealing with an input file that is a `.R` file. Since data from PCTA had to be directly copied ("by hand") from an image. Additionally, this convention allows `devtools::load_all()` to run without error. 
+* `results` contains all plots, tables, and data created, including those that were not used in the report. 
+* `tests` contains a test of the functioning of the repository.
+* `man` contains documentation on the function.
+* `src/R` contains the functions for this repository.
+     * `bootstrap-functions.R` includes three functions: 
+          1. `get_bootstrap_prop_means()`is the original function and is used only by `src/analysis/01__initial-bootstrap-run.Rmd`
+          2. `compare_get_bootstrap_prop_means()` replaces the first function in the sequential portion of the project, in order to give a "fair" comparison between the parallel and sequential approaches. This was necessary due to minor differences in the purrr and furrr package that were accentuated by the original use of the rsample package.
+          3. `future_get_bootstrap_prop_means` matches the second function but uses furrr rather than purrr. 
+     * `connect-to-ec2` does exactly what the name implies, it establishes a connection to Amazon EC2. It requires the ip address and ssh key (as seen in the *II. Parallel Approach* section) 
+     
+The following are required packages: tidyverse, here, rsample, ggpubr, magrittr, purrr, furrr, future, parallelly, magick

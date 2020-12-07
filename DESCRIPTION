@@ -24,6 +24,7 @@ Imports:
     furrr,
     dplyr,
     future,
-    parallelly
-Suggests: 
-    testthat
+    parallelly,
+    magick,
+    testthat,
+    liftr

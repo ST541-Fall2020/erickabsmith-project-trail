@@ -1,5 +1,8 @@
-00\_data-cleaning
+02\_data-cleaning
 ================
+
+This file inputs the `pcta.rds` file and creates the `prop` and `total`
+variables. It outputs the new data into `results/pct_completions.rds`.
 
 ``` r
 library(tidyverse)
@@ -19,7 +22,7 @@ Filter out unnecessary columns and create proportion completed variable
 pct_completions <- pct_completions %>%
   mutate(prop = completions/(northbound+southbound),
          year = factor(year)) %>%
-  select(c(year, northbound, southbound, completions, prop))
+  select(c(year, prop))
 ```
 
 Export new file

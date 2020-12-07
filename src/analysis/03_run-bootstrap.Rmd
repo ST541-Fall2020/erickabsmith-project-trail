@@ -1,7 +1,9 @@
 ---
-title: "01_run-bootstrap"
+title: "03_run-bootstrap"
 output: github_document
 ---
+
+This file runs the sequential bootstrap described in `README.md` *I. Sequential*. It requires the `bootstrap_functions.R` file and the `results/pct_completions.rds` data. It outputs two files, the `results/bootstrap-resamples.rds` which includes all of the resamples, and the `results/mean-and-ci.rds` file which just contains those summary statistics. 
 
 ```{r setup, message = FALSE, warning=FALSE}
 library(tidyverse)
@@ -16,13 +18,13 @@ Load data and functions
 
 ```{r load-data, message=FALSE, warning =FALSE}
 pct_completions <- readRDS(here("results", "pct_completions.rds"))
-source(here("R", "bootstrap-functions.R"))
+source(here("src/R", "bootstrap-functions.R"))
 ```
 
 Do bootstrap resampling
 
 ```{r cache=TRUE}
-resamples <- get_bootstrap_prop_means(original_dat=pct_completions, ntimes = 100000)
+resamples <- data.frame(mean_prop_completed=compare_get_bootstrap_prop_means(original_dat=pct_completions, ntimes = 100000))
 ```
 
 Create data frame with observed mean, bootstrap mean, and bootstrap confidence interval

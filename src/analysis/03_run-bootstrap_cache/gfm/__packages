@@ -12,6 +12,3 @@ here
 rsample
 ggpubr
 magrittr
-future
-furrr
-parallelly

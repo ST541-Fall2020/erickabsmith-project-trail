@@ -1,5 +1,9 @@
-Bootstrap
+01\_initial-bootstrap-run
 ================
+
+This file is the “first draft” of this project. It includes the entire
+sequential bootstrapping analysis, save for the creation of tables. It
+relies on `data/pcta.rds`
 
 ``` r
 library(tidyverse)
@@ -18,7 +22,7 @@ pct_completions <- pct_completions %>%
          year = factor(year))
 ```
 
-## Question of interest: What’s the average proportion of hikers who complete the Pacific Crest Trail
+## Question of interest: What’s the average proportion of hikers who complete the Pacific Crest Trail?
 
 First, get an idea of the data.
 
@@ -34,7 +38,7 @@ pct_completions %>%
   theme(axis.text.x = element_text(angle=45))
 ```
 
-![](initial_bootstrap_run_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+![](01_initial-bootstrap-run_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
 ``` r
 (obs_mean <- mean(pct_completions$prop))
@@ -67,7 +71,7 @@ resamples %>%
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](initial_bootstrap_run_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](01_initial-bootstrap-run_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 A 95% confidence interval based on percentile method:
 

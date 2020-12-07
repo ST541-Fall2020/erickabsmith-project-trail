@@ -15,28 +15,28 @@
 
 * [x] go through furrr + EC2 information: *(Pushed to week 8)* [https://davisvaughan.github.io/furrr/articles/articles/remote-connections.html](https://davisvaughan.github.io/furrr/articles/articles/remote-connections.html)
 * [x] <del>Set up a parallel computing environment</del> *(Pushed to week 8 and refined for clarity)*
-* [ ] Attempt to improve efficiency by at least one timing experiment *(Skeleton created but not implemented)*
+* [x] Attempt to improve efficiency by at least one timing experiment
 * [x] Document at least one function using roxygen
 * [x] Do the actual simulation at least once. Does it make sense? *(Pushed to week 8)*
 
 ### Week 8 (11/19/2020)
 
 * [x] Set up AWS EC2 instance, pre-loaded with R *(migrated from week 7)*
-* [ ] Learn about either make or liftr
-* [ ] Formalize Reproducability through at least one test *(Skeleton created but not implemented)*
-* [ ] Clarify how files are related to each other with a flow diagram
-* [ ] Draft README
+* [ ] <del>Learn about either make or liftr</del> ***could not get liftr to work, despite downloading docker and following along with [https://cran.r-project.org/web/packages/liftr/vignettes/liftr-intro.html](https://cran.r-project.org/web/packages/liftr/vignettes/liftr-intro.html). Liftr metadata is included in `src/analysis/07_timing-experiment.R***
+* [x] Formalize Reproducability through at least one test *(Skeleton created but not implemented)*
+* [x] Clarify how files are related to each other with a flow diagram
+* [x] Draft README
 * [x] Run simulation again at least once
 
 ### Week 9 (11/26/2020)
 
-* [ ] Finalize documentation and reread for clarity
+* [x] Finalize documentation and reread for clarity
 * [x] Complete Report
 * [x] Complete Presentation
 
 ### Week 10 (12/03/2020)
 
-* [ ] Final QC Documentation
-* [ ] Practice Presentation at least once
-* [ ] Final QC Report
-* [ ] Final QC Repo
+* [x] Final QC Documentation
+* [x] Practice Presentation at least once
+* [x] Final QC Report
+* [x] Final QC Repo

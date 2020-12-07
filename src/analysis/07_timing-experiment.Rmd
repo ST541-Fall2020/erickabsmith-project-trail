@@ -1,33 +1,95 @@
 ---
 title: "07_timing-experiment"
 output: github_document
+liftr:
+  maintainer: "Ericka B. Smith"
+  email: "smith.ericka.b@gmail.com"
+  from: "rocker/r-base:latest"
+  pandoc: true
+  texlive: false
+  sysdeps:
+    - gfortran
+  cran:
+    - glmnet
+  bioc:
+    - Gviz/3.9
+  remotes:
+    - "nanxstats/liftr"
+  include: "DockerfileSnippet"
 ---
 
-```{r setup, include=FALSE}
+This file runs an experiment with `bench::mark()` to determine if the sequential or parallel approach is faster in this example. It requires:
+
+* `results/pct_completions.rds`
+* `src/R/bootstrap-functions.R`
+* `src/R/connect-to-ec2.R`
+* `data/ssh_info.csv`
+
+And it outputs both a plot and table png files.
+
+```{r}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(here)
+library(rsample)
+library(ggpubr)
+library(magrittr)
+library(purrr)
+library(furrr)
+library(future)
+library(parallelly)
+library(kableExtra)
+library(liftr)
+```
+
+Load data and functions
+```{r load-data, message=FALSE, warning =FALSE}
+pct_completions <- readRDS(here("results", "pct_completions.rds"))
+source(here("src/R", "bootstrap-functions.R"))
+source(here("src/R", "connect-to-ec2.R"))
+ssh_info <- read_csv(here("data", "ssh_info.csv"))
+```
+
+Connect to EC2
+```{r}
+public_ip <- ssh_info$ip
+ssh_private_key_file <- ssh_info$filepath
+cl <- connect_to_ec2(public_ip, ssh_private_key_file)
 ```
 
 
 ```{r run-timings}
-# timings <- bench::mark(
-#   {set.seed(72)
-#     func1()
-#   },
-#   {set.seed(72)
-#     func2()
-#   }
-# )
+timings <- bench::mark(
+  {set.seed(72)
+  plan(cluster, workers = cl)
+  resamples <- future_get_bootstrap_prop_means(original_dat=pct_completions, ntimes = 1000)
+  },
+  {set.seed(72)
+  plan(sequential)
+  resamples <- compare_get_bootstrap_prop_means(original_dat=pct_completions, ntimes = 1000)
+  },
+  check=FALSE
+)
 ```
 
 
 ```{r save-output}
-# timings_plot <- plot(timings)
-# 
-# ggsave("timing-experiment-plot.tiff", plot=timings_plot, path="../results")
-# timings
-# 
-# timings %>%
-#   kbl() %>%
-#   kable_minimal(full_width = F) %>%
-#   save_kable(file="../results/timing-experient-table.html")
+timings_plot <- plot(timings, color="black")
+timings_plot_polished <- timings_plot + 
+  theme_light() +
+  theme(axis.text.y = element_blank(),
+        legend.position = "none")+
+  labs(title = "Result of timing experiment",
+       x = "\n") 
+timings_plot_polished_annotated <- annotate_figure(timings_plot_polished,
+                left = text_grob("Parallel                                       Sequential", rot=90))
+  
+ggsave("timing-experiment-plot.png", plot=timings_plot_polished_annotated, path="../../results")
+
+names <- data.frame(Function = c("Parallel", "Sequential"))
+cbind(names, timings[,1:9]) %>%
+  mutate(Function = c("Parallel", "Sequential")) %>%
+  kableExtra::kbl() %>%
+  kable_styling(c("bordered", "condensed"), full_width = FALSE) %>%
+  save_kable(file="../../results/timing-experient-table.png")
 ```

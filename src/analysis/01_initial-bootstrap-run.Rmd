@@ -1,8 +1,9 @@
 ---
-title: Bootstrap 
+title: "01_initial-bootstrap-run" 
 output: github_document
 ---
 
+This file is the "first draft" of this project. It includes the entire sequential bootstrapping analysis, save for the creation of tables. It relies on `data/pcta.rds`
 
 ```{r setup, message = FALSE, warning=FALSE}
 library(tidyverse)
@@ -22,7 +23,7 @@ pct_completions <- pct_completions %>%
 ```
 
 
-## Question of interest: What's the average proportion of hikers who complete the Pacific Crest Trail
+## Question of interest: What's the average proportion of hikers who complete the Pacific Crest Trail?
 
 First, get an idea of the data. 
 

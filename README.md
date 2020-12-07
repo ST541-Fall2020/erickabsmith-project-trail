@@ -75,4 +75,4 @@ In addition, all files ni
           3. `future_get_bootstrap_prop_means` matches the second function but uses furrr rather than purrr. 
      * `connect-to-ec2` does exactly what the name implies, it establishes a connection to Amazon EC2. It requires the ip address and ssh key (as seen in the *II. Parallel Approach* section) 
      
-The following are required packages: tidyverse, here, rsample, ggpubr, magrittr, purrr, furrr, future, parallelly, magick
+The following are required packages: tidyverse, here, rsample, ggpubr, magrittr, purrr, furrr, future, parallelly, magick, testthat, liftr, kableExtra, usethis

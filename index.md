@@ -22,7 +22,7 @@ Since a primary purpose of this project was to learn about parallel processing I
 
 #### The timing experiment:
 
-![](timing-experiment-plot.png)
+![](images/timing-experiment-plot.png)
 
 This shows a distinct difference between the parallel method and the sequential method. This makes intuitive sense because parallelization is more advantageous when there is a lot of computation involved, which in this case there is not. Even with 100,000 resamples we still are only resampling a vector of seven numbers.
 

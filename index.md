@@ -9,9 +9,7 @@ Bootstrapping methods were combined with parallel computing to produce an estima
 #### A look at the raw data:
 
 <center>
-
-![](images/observed-data-plot.png)
-
+<img src="./images/observed-data-plot.png">
 </center>
 
 As is clear from this plot, there are many limitations to these analyses. 
@@ -22,11 +20,9 @@ As is clear from this plot, there are many limitations to these analyses.
 #### Here's the bootstrap distributions:
 
 <center>
+<img src="./images/bootstrap-distribution-plot.png">
 
-![](images/bootstrap-distribution-plot.png)
-
-![](images/parallel-bootstrap-distribution-plot.png)
-
+<img src="./images/parallel-bootstrap-distribution-plot.png">
 </center>
 
 The lack of normality makes sense due to the the aforementioned limitations.
@@ -35,9 +31,7 @@ Since a primary purpose of this project was to learn about parallel processing I
 #### The timing experiment:
 
 <center>
-
-![](images/timing-experiment-plot.png)
-
+<img src="./images/timing-experiment-plot.png">
 </center>
 
 This shows a distinct difference between the parallel method and the sequential method. This makes intuitive sense because parallelization is more advantageous when there is a lot of computation involved, which in this case there is not. Even with 100,000 resamples we still are only resampling a vector of seven numbers.
